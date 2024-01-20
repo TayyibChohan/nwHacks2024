@@ -1,26 +1,16 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { Button, Container, Reshaped } from "reshaped";
+import "reshaped/themes/reshaped/theme.css";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Reshaped theme="reshaped">
+      <Container width="1440px" padding={{ s: 4, m: 8, l: 14, xl: 25 }}>
+        <Button href="/">Get started</Button>
+      </Container>
+    </Reshaped>
   );
-}
+};
 
 export default App;
