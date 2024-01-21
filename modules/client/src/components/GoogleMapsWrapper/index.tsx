@@ -1,12 +1,13 @@
+import './maps.scss'
 import React, { useEffect, useRef } from 'react'
 import { Wrapper } from '@googlemaps/react-wrapper'
+import { proxy } from 'valtio'
 
-const room_locations = [
-  { lat: 49.26245880126953, lng: -123.24458312988281 },
-  { lat: 49.26246538789983, lng: -123.2448949967859 },
-]
-
-export const GoogleMapsWrapper = () => {
+export const GoogleMapsWrapper = ({
+  locations,
+}: {
+  locations: ReadonlyArray<google.maps.LatLngLiteral>
+}) => {
   const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY
 
   if (!apiKey) {
@@ -15,13 +16,15 @@ export const GoogleMapsWrapper = () => {
 
   return (
     <Wrapper apiKey={apiKey}>
-      <GoogleMaps locations={room_locations} />
+      <GoogleMaps locations={locations} />
     </Wrapper>
   )
 }
 
 const DEFAULT_CENTER = { lat: 49.26245880126953, lng: -123.24458312988281 }
 const DEFAULT_ZOOM = 18
+
+export let map = proxy<google.maps.Map>()
 
 export const GoogleMaps = ({
   locations,
@@ -33,7 +36,7 @@ export const GoogleMaps = ({
   useEffect(() => {
     // Display the map
     if (ref.current) {
-      const map = new window.google.maps.Map(ref.current, {
+      map = new window.google.maps.Map(ref.current, {
         center: DEFAULT_CENTER,
         zoom: DEFAULT_ZOOM,
 
@@ -51,7 +54,7 @@ export const GoogleMaps = ({
     }
   }, [ref, locations])
 
-  return <div ref={ref} style={{ width: '1000px', height: '700px' }} />
+  return <div ref={ref} className='google-maps-rooms' />
 }
 
 export const addSingleMarkers = ({
