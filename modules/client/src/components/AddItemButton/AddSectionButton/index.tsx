@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Modal, Text, TextField, useToggle, View } from 'reshaped'
-import { ClassSection, Project, Room } from '../../../utils/types'
+import { ClassSection, Project } from '../../../utils/types'
 import { userData } from '../../../utils/userData'
 
 const newSection = (): ClassSection => ({

@@ -5,12 +5,7 @@ import { Text } from 'reshaped/bundle'
 import { useSnapshot } from 'valtio'
 import { userData } from '../../utils/userData'
 import { Navigate, useParams } from 'react-router-dom'
-import {
-  addSingleMarkers,
-  GoogleMapsWrapper,
-  map,
-} from '../../components/GoogleMapsWrapper'
-import { AddItemButton } from '../../components/AddItemButton'
+import { GoogleMapsWrapper } from '../../components/GoogleMapsWrapper'
 import { AddSectionButton } from '../../components/AddItemButton/AddSectionButton'
 import { AddRoomButton } from '../../components/AddItemButton/AddRoomButton'
 
