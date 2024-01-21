@@ -1,8 +1,2 @@
-# nwHacks2024 - Room Rover
-
-A full-stack web application created to assist in optimizing registrars' class & room assignments.
-Optimizes walking distance between time-adjacent classes by grouping together clusters of available rooms & time adjacent class times.
-
-Utilizes Flask, Python and React Typescript along with the Auth0 & Google Maps APIs.
-
-James, Tayyib, Roberto, Josh.
+# RoomRover - nwHacks2024 Edition
+Embark on a revolutionary approach to classroom management with RoomRover, a sophisticated Flask-based web application seamlessly integrated with Auth0 for secure and user-friendly authentication and the Google Maps API. RoomRover transcends traditional administrative tools, offering educators and administrators an intuitive platform to effortlessly navigate, organize, and enhance their classroom experiences.

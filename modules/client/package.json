@@ -10,6 +10,7 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "@googlemaps/react-wrapper": "^1.1.35",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
@@ -23,6 +24,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@types/google.maps": "^3.54.10",
     "@types/jest": "^27.0.1",
     "@types/node": "^16.7.13",
     "@types/react": "^18.2.48",
