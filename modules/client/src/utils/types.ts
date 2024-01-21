@@ -15,7 +15,10 @@ export type Room = {
   uuid: string
   title: string
   capacity: number
-  location?: [number, number]
+  location: {
+    x: number
+    y: number
+  }
 }
 
 export type Project = {

@@ -17,6 +17,7 @@ export const ProjectDirectoryPage = () => {
           name='project'
           createButtonText='Create Project'
           placeholder='Give a name to your project'
+          buttonTextSize='title-3'
           onCreate={title =>
             userData.projects.push({
               rooms: [],

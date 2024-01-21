@@ -1,11 +1,37 @@
 import './add-item.scss'
 import React, { useState } from 'react'
-import { Button, Modal, Text, TextField, useToggle, View } from 'reshaped'
+import {
+  Button,
+  Modal,
+  Responsive,
+  Text,
+  TextField,
+  useToggle,
+  View,
+} from 'reshaped'
+import { Variant } from 'reshaped/components/Text/Text.types'
+
+type TextVariants =
+  | 'title-1'
+  | 'title-2'
+  | 'title-3'
+  | 'title-4'
+  | 'title-5'
+  | 'title-6'
+  | 'featured-1'
+  | 'featured-2'
+  | 'featured-3'
+  | 'body-1'
+  | 'body-2'
+  | 'body-3'
+  | 'caption-1'
+  | 'caption-2'
 
 interface AddItemButtonProps {
   name: string
   placeholder?: string
   createButtonText: string
+  buttonTextSize: Responsive<TextVariants>
   onCreate: (title: string) => void
 }
 
@@ -14,6 +40,7 @@ export const AddItemButton = ({
   placeholder,
   createButtonText,
   onCreate,
+  buttonTextSize,
 }: AddItemButtonProps) => {
   const {
     active: addModalActive,
@@ -36,7 +63,7 @@ export const AddItemButton = ({
         className='add-item-button'
         onClick={openAddModal}
       >
-        <Text variant='title-3'>+</Text>
+        <Text variant={buttonTextSize}>+</Text>
       </Button>
       <Modal active={addModalActive}>
         <View position='absolute' className='modal-close-button-wrapper'>
