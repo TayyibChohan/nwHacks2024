@@ -9,7 +9,11 @@ export const Layout = ({ children }: { children: ReactNode }) => {
     <View direction='column' className='site-container'>
       <SiteHeader />
       <View.Item grow>
-        <Container width='1440px' padding={{ s: 4, m: 8, l: 14, xl: 25 }}>
+        <Container
+          width='1440px'
+          padding={{ s: 4, m: 8, l: 14, xl: 25 }}
+          className='site-content'
+        >
           {children}
         </Container>
       </View.Item>

@@ -1,3 +1,4 @@
+import './maps.scss'
 import React, { useEffect, useRef } from 'react'
 import { Wrapper } from '@googlemaps/react-wrapper'
 
@@ -51,7 +52,7 @@ export const GoogleMaps = ({
     }
   }, [ref, locations])
 
-  return <div ref={ref} style={{ width: '1000px', height: '700px' }} />
+  return <div ref={ref} className='google-maps-rooms' />
 }
 
 export const addSingleMarkers = ({

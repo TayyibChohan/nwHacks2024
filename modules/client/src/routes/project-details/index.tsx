@@ -1,3 +1,4 @@
+import './project-details.scss'
 import React from 'react'
 import { View } from 'reshaped'
 import { Text } from 'reshaped/bundle'
@@ -18,8 +19,15 @@ export const ProjectDetailPage = () => {
   const { sections, rooms } = project
 
   return (
-    <View direction='row' justify='center' gap={6} paddingBlock={10}>
-      <View.Item grow>
+    <View
+      direction='row'
+      justify='center'
+      gap={6}
+      paddingBlock={10}
+      height='100%'
+      wrap
+    >
+      <View.Item grow className='detail-item-list'>
         <View direction='column' align='center'>
           <Text variant='featured-1'>Classes</Text>
           {sections.map(section => (
@@ -27,7 +35,7 @@ export const ProjectDetailPage = () => {
           ))}
         </View>
       </View.Item>
-      <View.Item grow>
+      <View.Item grow className='detail-item-list'>
         <View direction='column' align='center'>
           <Text variant='featured-1'>Rooms</Text>
           {rooms.map(room => (

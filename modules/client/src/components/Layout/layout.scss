@@ -1,6 +1,10 @@
 .site-container {
   min-height: 100vh;
 
+  .site-content {
+    height: 100%;
+  }
+
   .site-header, .site-footer {
     background-color: #0A1B22;
 
