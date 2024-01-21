@@ -9,6 +9,8 @@ from authlib.integrations.flask_client import OAuth
 from dotenv import find_dotenv, load_dotenv
 from flask import Flask, redirect, render_template, session, url_for, request
 
+from algo import checkIfValidAssigmentPossible, calculate_distance, find_arangement
+user_id = "c2bMXBEwVtUgaCIkJziWBhHGnVScUdgG"
 ENV_FILE = find_dotenv()
 if ENV_FILE:
     load_dotenv(ENV_FILE)
@@ -42,17 +44,28 @@ def home():
         pretty=json.dumps(session.get("user"), indent=4),
     )
 
-@app.route('/add_room', methods=['POST'])
-def add_room():
-    #check if no user is logged in
-    if not session.get("user"):
-        return json.dumps({'error': 'no user logged in'})
-    #check if user is in json file and add if not
-    data = {}
+@app.route("/algo")
+def algo():
+    # run algorithm on and update json file
+    if user_id not in data:
+        data[user_id] = {}
+        data[user_id]['rooms'] = []
+        data[user_id]['classes'] = []
+        with open(json_file, 'w') as f:
+            json.dump(data, f, indent=4)
     with open(json_file, 'r') as f:
         data = json.load(f)
-    #get user id from session
-    user_id = session.get("user")['userinfo']['aud']
+    #get rooms and classes
+    rooms = data[user_id]['rooms']
+    classes = data[user_id]['classes']
+    #run algorithm
+    if not checkIfValidAssigmentPossible(rooms, classes):       
+        return json.dumps({'error': 'Not enough rooms to hold all classes'})
+
+@app.route('/add_room', methods=['POST'])
+def add_room():  
+    with open(json_file, 'r') as f:
+        data = json.load(f)
     if user_id not in data:
         data[user_id] = {}
         data[user_id]['rooms'] = []
@@ -61,11 +74,10 @@ def add_room():
             json.dump(data, f, indent=4)
 
     req_data = request.get_json()
-    with open(json_file, 'r') as f:
-        data = json.load(f)
+    
     
     #get user id from session
-    user_id = session.get("user")['userinfo']['aud']
+
     data[user_id]['rooms'].append(req_data)
 
     with open(json_file, 'w') as f:
@@ -74,15 +86,8 @@ def add_room():
     
 @app.route('/add_class', methods=['POST'])
 def add_class():
-    #check if no user is logged in
-    if not session.get("user"):
-        return json.dumps({'error': 'no user logged in'})
-    #check if user is in json file and add if not
-    data = {}
     with open(json_file, 'r') as f:
         data = json.load(f)
-    #get user id from session
-    user_id = session.get("user")['userinfo']['aud']
     if user_id not in data:
         data[user_id] = {}
         data[user_id]['rooms'] = []
@@ -90,11 +95,8 @@ def add_class():
         with open(json_file, 'w') as f:
             json.dump(data, f, indent=4)
     req_data = request.get_json()
-    with open(json_file, 'r') as f:
-        data = json.load(f)
-    
     #get user id from session
-    user_id = session.get("user")['userinfo']['aud']
+
     data[user_id]['classes'].append(req_data)
 
     with open(json_file, 'w') as f:
@@ -103,48 +105,39 @@ def add_class():
 
 @app.route('/get_rooms', methods=['GET'])
 def get_rooms():
-    #check if no user is logged in
-    if not session.get("user"):
-        return json.dumps({'error': 'no user logged in'})
-    #check if user is in json file and add if not
-    data = {}
     with open(json_file, 'r') as f:
         data = json.load(f)
-    #get user id from session
-    user_id = session.get("user")['userinfo']['aud']
     if user_id not in data:
         data[user_id] = {}
         data[user_id]['rooms'] = []
         data[user_id]['classes'] = []
         with open(json_file, 'w') as f:
             json.dump(data, f, indent=4)
-    with open(json_file, 'r') as f:
-        data = json.load(f)
+
    
     return json.dumps(data[user_id]['rooms'])
 
 @app.route('/get_classes', methods=['GET'])
 def get_classes():
-    #check if no user is logged in
-    if not session.get("user"):
-        return json.dumps({'error': 'no user logged in'})
     with open(json_file, 'r') as f:
         data = json.load(f)
-    #get user id from session
-    user_id = session.get("user")['userinfo']['aud']
+    if user_id not in data:
+        data[user_id] = {}
+        data[user_id]['rooms'] = []
+        data[user_id]['classes'] = []
+        with open(json_file, 'w') as f:
+            json.dump(data, f, indent=4)
+
+
     return json.dumps(data[user_id]['classes'])
 
 @app.route('/delete_room', methods=['POST'])
 def delete_room():
-    #check if no user is logged in
-    if not session.get("user"):
-        return json.dumps({'error': 'no user logged in'})
-    req_data = request.get_json()
     with open(json_file, 'r') as f:
         data = json.load(f)
-    
+    req_data = request.get_json()    
     #get user id from session
-    user_id = session.get("user")['userinfo']['aud']
+
     data[user_id]['rooms'].remove(req_data)
 
     with open(json_file, 'w') as f:
@@ -153,15 +146,12 @@ def delete_room():
 
 @app.route('/delete_class', methods=['POST'])
 def delete_class():
-    #check if no user is logged in
-    if not session.get("user"):
-        return json.dumps({'error': 'no user logged in'})
     req_data = request.get_json()
     with open(json_file, 'r') as f:
         data = json.load(f)
     
     #get user id from session
-    user_id = session.get("user")['userinfo']['aud']
+
     data[user_id]['classes'].remove(req_data)
 
     with open(json_file, 'w') as f:
@@ -171,22 +161,8 @@ def delete_class():
 @app.route("/callback", methods=["GET", "POST"])
 def callback():
     token = oauth.auth0.authorize_access_token()
-    session["user"] = token      
-    #check if user is in json file and add if not
-    data = {}
-    with open(json_file, 'r') as f:
-        data = json.load(f)
-    #get user id from session
-    user_id = session.get("user")['userinfo']['aud']
-    print(data.keys())
-    if user_id not in data:
-        data[user_id] = {}
-        data[user_id]['rooms'] = []
-        data[user_id]['classes'] = []
-        with open(json_file, 'w') as f:
-            json.dump(data, f, indent=4)
-        
-    return redirect("/")
+    session["user"] = token              
+    return redirect("http://localhost:3001/projects?token="+token["access_token"]+"&user_id="+user_id)
 
 
 @app.route("/login")
