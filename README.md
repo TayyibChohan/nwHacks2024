@@ -1,1 +1,2 @@
-# RoomRover - nwHacks2024
+# RoomRover - nwHacks2024 Edition
+Embark on a revolutionary approach to classroom management with RoomRover, a sophisticated Flask-based web application seamlessly integrated with Auth0 for secure and user-friendly authentication and the MappedIn API. RoomRover transcends traditional administrative tools, offering educators and administrators an intuitive platform to effortlessly navigate, organize, and enhance their classroom experiences.
