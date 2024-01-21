@@ -1,30 +1,16 @@
-import React from "react";
-import { Reshaped, View } from "reshaped";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "reshaped/themes/reshaped/theme.css";
-import { Root } from "./routes/root";
-import { ErrorPage } from "./pages/error-page";
-import { SiteHeader } from "./components/SiteHeader";
-import { SiteFooter } from "./components/SiteFooter";
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Root />,
-    errorElement: <ErrorPage />,
-  },
-]);
+import 'reshaped/themes/reshaped/theme.css'
+import 'reshaped/bundle.css'
+import React from 'react'
+import { Reshaped } from 'reshaped'
+import { RouterProvider } from 'react-router-dom'
+import { router } from './routes/router'
 
 const App = () => {
   return (
-    <Reshaped theme="reshaped">
-      <View minHeight="100vh" direction="column" className="site-container">
-        <SiteHeader />
-        <RouterProvider router={router} />
-        <SiteFooter />
-      </View>
+    <Reshaped theme='reshaped'>
+      <RouterProvider router={router} />
     </Reshaped>
-  );
-};
+  )
+}
 
-export default App;
+export default App
