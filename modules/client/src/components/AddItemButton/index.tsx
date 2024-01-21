@@ -9,23 +9,7 @@ import {
   useToggle,
   View,
 } from 'reshaped'
-import { Variant } from 'reshaped/components/Text/Text.types'
-
-type TextVariants =
-  | 'title-1'
-  | 'title-2'
-  | 'title-3'
-  | 'title-4'
-  | 'title-5'
-  | 'title-6'
-  | 'featured-1'
-  | 'featured-2'
-  | 'featured-3'
-  | 'body-1'
-  | 'body-2'
-  | 'body-3'
-  | 'caption-1'
-  | 'caption-2'
+import { TextVariants } from '../../utils/types'
 
 interface AddItemButtonProps {
   name: string

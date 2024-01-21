@@ -11,6 +11,8 @@ import {
   map,
 } from '../../components/GoogleMapsWrapper'
 import { AddItemButton } from '../../components/AddItemButton'
+import { AddSectionButton } from '../../components/AddItemButton/AddSectionButton'
+import { AddRoomButton } from '../../components/AddItemButton/AddRoomButton'
 
 export const ProjectDetailPage = () => {
   let { projectId } = useParams()
@@ -27,30 +29,20 @@ export const ProjectDetailPage = () => {
     <View
       direction='row'
       justify='center'
+      align='stretch'
       gap={6}
       paddingBlock={10}
-      height='100%'
+      minHeight='100%'
       wrap
     >
       <View.Item grow className='detail-item-list'>
         <View direction='column' align='center' gap={3}>
           <View direction='row' gap={5} align='center'>
             <Text variant='featured-1'>Sections</Text>
-            <AddItemButton
-              name='section'
-              placeholder='Section name'
-              createButtonText='Create Section'
-              buttonTextSize='title-6'
-              onCreate={title => {
-                userData.projects
-                  .find(project => project.uuid === projectId)
-                  ?.sections.push({
-                    uuid: `sect${Math.random() * 10}`.replace('.', ''),
-                    title: title,
-                    enrollment: Math.floor(Math.random() * 250),
-                    timeSlot: 1 + Math.floor(Math.random() * 10),
-                  })
-              }}
+            <AddSectionButton
+              project={
+                userData.projects.find(project => project.uuid === projectId)!
+              }
             />
           </View>
           {sections.map(section => (
@@ -72,38 +64,10 @@ export const ProjectDetailPage = () => {
         <View direction='column' align='center' gap={3}>
           <View direction='row' gap={5} align='center'>
             <Text variant='featured-1'>Rooms</Text>
-            <AddItemButton
-              name='room'
-              placeholder='Room name'
-              createButtonText='Create Room'
-              buttonTextSize='title-6'
-              onCreate={title => {
-                const location = {
-                  x: -123.24458312988281 + (Math.random() - 0.5) * 0.001,
-                  y: 49.26245880126953 + (Math.random() - 0.5) * 0.001,
-                }
-
-                if (map) {
-                  addSingleMarkers({
-                    locations: [
-                      {
-                        lng: location.x,
-                        lat: location.y,
-                      },
-                    ],
-                    map: map,
-                  })
-                }
-
-                userData.projects
-                  .find(project => project.uuid === projectId)
-                  ?.rooms.push({
-                    uuid: `room${Math.random() * 10}`.replace('.', ''),
-                    title: title,
-                    capacity: Math.floor(Math.random() * 250),
-                    location: location,
-                  })
-              }}
+            <AddRoomButton
+              project={
+                userData.projects.find(project => project.uuid === projectId)!
+              }
             />
           </View>
           {rooms.map(room => (
