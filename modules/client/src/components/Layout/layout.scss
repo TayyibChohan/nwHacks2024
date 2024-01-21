@@ -1,7 +1,20 @@
 .site-container {
   min-height: 100vh;
+  background-color: #0A1B22;
+  color: white;
+  font-family: "Times New Roman";
 
-  .header-button {
-    width: 80px;
+  .site-footer {
+    .header-button {
+      color: white;
+    }
+  }
+  .header{
+    background-color: #0A1B22;
+    color: white;
+    
+    .header-button {
+      width: 80px;
+    }
   }
 }
