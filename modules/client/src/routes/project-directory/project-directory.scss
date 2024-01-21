@@ -3,3 +3,17 @@
     background-color: var(--rs-color-background-neutral-faded);
   }
 }
+
+.project-add-button {
+  aspect-ratio: 1;
+}
+
+.modal-close-button-wrapper {
+  top: 12px;
+  right: 12px;
+  z-index: 1;
+
+  .modal-close-button {
+    aspect-ratio: 1;
+  }
+}

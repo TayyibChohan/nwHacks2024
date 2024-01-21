@@ -1,7 +1,16 @@
 .site-container {
   min-height: 100vh;
 
-  .header-button {
-    width: 80px;
+  .site-header, .site-footer {
+    background-color: #0A1B22;
+
+    .header-button {
+      width: 80px;
+    }
+
+    .site-title {
+      // font-family: "Libre Caslon Display", "Times New Roman", serif;
+      color: white;
+    }
   }
 }
